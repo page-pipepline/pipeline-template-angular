@@ -1,0 +1,8 @@
+<div class="info-container"
+  [attr.data-component-id]="dataComponentId"
+  [attr.data-component-name]="dataComponentName">
+  <div class="title">{{config.title}}</div>
+    <div *ngFor="let info of config.infoList, index as index" class="info">
+      <div class="one-info">{{info.info}}</div>
+    </div>
+</div>

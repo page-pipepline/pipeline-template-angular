@@ -1,0 +1,24 @@
+<div class="weather-container"
+  [attr.data-component-id]="dataComponentId"
+  [attr.data-component-name]="dataComponentName">
+  <div class="weather-container__title">查询天气(动态接口示例)</div>
+  <div class="weather__title">{{config.city}}</div>
+  <ul class="weather__info">
+    <li>
+      <label class="weather-info__label">温度</label>
+      <span class="weather-info__value">
+        {{data.weather.temperature}}℃ / {{data.weather.humidity}}℉
+      </span>
+    </li>
+    <li>
+      <label class="weather-info__label">气象</label>
+      <span class="weather-info__value">{{data.weather.weather}}</span>
+    </li>
+    <li>
+      <label class="weather-info__label">风向</label>
+      <span class="weather-info__value">
+        {{data.weather.winddirection}}
+      </span>
+    </li>
+  </ul>
+</div>

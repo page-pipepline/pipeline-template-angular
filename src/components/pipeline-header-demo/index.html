@@ -1,0 +1,12 @@
+<div class="header-container"
+  [attr.data-component-id]="dataComponentId"
+  [attr.data-component-name]="dataComponentName">
+  <div class="title">{{config.title}}</div>
+  <div class="header">
+    <img
+      class="header__img"
+      [src]="config.src"
+      (click)="imgClick()"
+    />
+  </div>
+</div>
