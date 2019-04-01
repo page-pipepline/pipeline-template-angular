@@ -1,5 +1,6 @@
 const path = require('path');
 const config = require('./index');
+const webpack = require('webpack');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -93,7 +94,9 @@ const webpackConfig = {
         inject: true,
         minify: false,
         ...config.dev.HWPPageBaseConfig,
-    })
+    }),
+    // https://github.com/angular/angular/issues/20357
+    new webpack.ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)fesm5/, path.join(__dirname, '../src')),
   ],
 }
 

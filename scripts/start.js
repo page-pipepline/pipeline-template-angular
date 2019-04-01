@@ -19,7 +19,9 @@ const devServerOptions = Object.assign({},  {
       modules: false,
       children: false,
       chunks: false,
-      chunkModules: false
+      chunkModules: false,
+      // https://github.com/angular/angular/issues/21560
+      // warningsFilter: /System.import/,
   },
 });
 const server = new WebpackDevServer(compiler, devServerOptions);
