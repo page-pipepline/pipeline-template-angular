@@ -1,15 +1,16 @@
 const path = require('path');
+const config = require('./index');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const config = {
+const webpackConfig = {
   entry: {
-    styles: './src/styles.globalless',
+    styles: './src/styles.less',
     polyfills: './src/polyfills.ts',
     main: './src/main.ts'
   },
   output: {
-    path: path.join(__dirname, '../dist'),
+    path: path.join(__dirname, '../build'),
     publicPath: './',
     filename: '[name].js',
     chunkFilename: '[id].chunk.js'
@@ -36,11 +37,13 @@ const config = {
       },
       {
         test: /\.html$/,
-        loader: 'html-loader'
+        loader: 'html-loader',
+        // 需要排除 src/index.html 文件, 交由 hmtl-webpack-plugin 处理
+        exclude: [/src\/index\.html$/]
       },
       {
-        // 全局样式需要用 style-loader, 所以用特殊的命名 globalless
-        test: /\.globalless$/,
+        // 全局样式需要用 style-loader
+        test: /\.less$/,
         use: [
           'style-loader',
           {
@@ -56,7 +59,8 @@ const config = {
             }
           }
         ],
-        include: path.resolve(__dirname, '../src')
+        // 只包含需要使用 style-loader 的 less 文件
+        include: path.resolve(__dirname, '../src/style.less')
       },
       {
         // 组件中使用的 style 要用 to-string-loader 来处理
@@ -77,15 +81,20 @@ const config = {
             }
           }
         ],
-        include: path.resolve(__dirname, '../src')
+        // 排除需要使用 style-loader 的 less 文件
+        exclude: path.resolve(__dirname, '../src/style.less')
       },
     ],
   },
   plugins: [
       new HtmlWebpackPlugin({
         template: 'src/index.html',
+        filename: 'index.html',
+        inject: true,
+        minify: false,
+        ...config.dev.HWPPageBaseConfig,
     })
   ],
 }
 
-module.exports = config;
+module.exports = webpackConfig;
